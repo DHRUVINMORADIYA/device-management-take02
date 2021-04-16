@@ -1,0 +1,38 @@
+.addHomeForm {
+  text-align: center;
+}
+.deviceDepartment {
+  height: auto;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(167, 145, 219);
+  margin-top: 100px;
+  outline: none;
+}
+
+.addHomeModal {
+  height: 400px;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(167, 145, 219);
+  margin-top: 100px;
+  outline: none;
+}
+
+.text {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.form {
+  padding-top: 20px;
+  justify-content: center;
+  position: relative;
+}
+
+li {
+  list-style-type: none;
+}

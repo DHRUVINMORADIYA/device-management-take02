@@ -13,7 +13,9 @@ export default function Cards(props) {
             props.openModal(props.id);
           }}
         >
-          <CardContent>{props.title}</CardContent>
+          <CardContent>
+            <div className="text">{props.title}</div>
+          </CardContent>
         </Card>
       </div>
     );
@@ -21,7 +23,9 @@ export default function Cards(props) {
     return (
       <div className="cardDiv">
         <Card className="card">
-          <CardContent>{props.title}</CardContent>
+          <CardContent>
+            <div className="text">{props.title}</div>
+          </CardContent>
         </Card>
       </div>
     );

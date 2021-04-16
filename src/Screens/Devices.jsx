@@ -49,15 +49,18 @@ export default function Devices(props) {
   }
 
   return (
-    <div>
+    <div className="deviceScreen">
+      <div className="deviceListTitle">{props.listHomes.title}</div>
       {showDevicesList()}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handle_toggle_device_form}
-      >
-        Add Device
-      </Button>
+      <div className="addHomeButton">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handle_toggle_device_form}
+        >
+          Add Device
+        </Button>
+      </div>
       <Modal
         isOpen={is_device_form_open}
         onRequestClose={handle_toggle_device_form}
@@ -82,9 +85,11 @@ export default function Devices(props) {
               required
             />
 
-            <Button type="submit" variant="contained" color="primary">
-              Add Device
-            </Button>
+            <div className="addHomeButton">
+              <Button type="submit" variant="contained" color="primary">
+                Add Device
+              </Button>
+            </div>
           </form>
         </div>
       </Modal>

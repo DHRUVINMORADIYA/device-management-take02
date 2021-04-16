@@ -58,13 +58,15 @@ export default function Home() {
   return (
     <div>
       {showHomeList()}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handle_toggle_home_form}
-      >
-        Add Home
-      </Button>
+      <div className="addHomeButton">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handle_toggle_home_form}
+        >
+          Add Home
+        </Button>
+      </div>
 
       <Modal
         isOpen={isHomeCardModalOpen}
@@ -96,9 +98,11 @@ export default function Home() {
               required
             />
 
-            <Button type="submit" variant="contained" color="primary">
-              Add Home
-            </Button>
+            <div className="addHomeButton">
+              <Button type="submit" variant="contained" color="primary">
+                Add Home
+              </Button>
+            </div>
           </form>
         </div>
       </Modal>

@@ -2,13 +2,14 @@
   text-align: center;
 }
 .deviceDepartment {
-  height: auto;
+  height: 500px;
   width: 300px;
   margin-left: auto;
   margin-right: auto;
   background-color: rgb(167, 145, 219);
   margin-top: 100px;
   outline: none;
+  overflow-y: auto;
 }
 
 .addHomeModal {
@@ -35,4 +36,26 @@
 
 li {
   list-style-type: none;
+}
+
+.addHomeButton {
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.deviceScreen {
+  height: auto;
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(167, 145, 219);
+  margin-top: 100px;
+  outline: none;
+  text-align: center;
+}
+
+.deviceListTitle {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 40px;
+  padding-top: 20px;
 }

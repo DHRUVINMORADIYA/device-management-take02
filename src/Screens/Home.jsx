@@ -5,13 +5,16 @@ import Button from "@material-ui/core/Button";
 import Modal from "react-modal";
 import TextField from "@material-ui/core/TextField";
 import Devices from "./Devices";
+import { connect } from "react-redux";
+import { addHomeCard } from "../Redux/Action";
 Modal.setAppElement("#root");
 
-export default function Home() {
+function Home(props) {
+  console.log("props", props.listHomes);
   const [isHomeCardModalOpen, toggleHomeCardModal] = React.useState(false);
   const [is_home_form_open, toggle_home_form] = React.useState(false);
-  const [listHomes] = React.useState([]);
   const [index, setIndex] = React.useState();
+  //const [listHomes] = React.useState(initialData.listHomes);
 
   function handleToggleHomeCardModal(index) {
     setIndex(index);
@@ -27,7 +30,8 @@ export default function Home() {
     let title = e.target[0].value;
 
     if (title.length > 0) {
-      listHomes.push({ title: title, id: listHomes.length, listDevices: [] });
+      props.pushHome(title);
+      //listHomes.push({ title: title, id: listHomes.length, listDevices: [] });
       handle_toggle_home_form();
     } else {
       alert("Please Enter a title for home!");
@@ -35,24 +39,27 @@ export default function Home() {
   };
 
   function deviceDepartment() {
-    if (listHomes.length >= index)
-      return <Devices listHomes={listHomes[index]}></Devices>;
+    if (props.listHomes && props.listHomes.length >= index)
+      return <Devices listHomes={props.listHomes[index]}></Devices>;
   }
 
   function showHomeList() {
-    if (listHomes.length < 1) {
+    if (props.listHomes && props.listHomes.length < 1) {
       return <div>There is no home to show!</div>;
     }
-    return listHomes.map((i) => (
-      <li key={i.id}>
-        <Cards
-          type="homeCard"
-          title={i.title}
-          id={i.id}
-          openModal={handleToggleHomeCardModal}
-        />
-      </li>
-    ));
+    return (
+      props.listHomes &&
+      props.listHomes.map((i) => (
+        <li key={i.id}>
+          <Cards
+            type="homeCard"
+            title={i.title}
+            id={i.id}
+            openModal={handleToggleHomeCardModal}
+          />
+        </li>
+      ))
+    );
   }
 
   return (
@@ -109,3 +116,14 @@ export default function Home() {
     </div>
   );
 }
+const mapStatetoProps = (state) => {
+  return state;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    pushHome: (title) => dispatch(addHomeCard(title)),
+  };
+};
+
+export default connect(mapStatetoProps, mapDispatchToProps)(Home);

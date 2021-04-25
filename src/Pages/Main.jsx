@@ -1,5 +1,4 @@
 import React from "react";
-import Devices from "../Screens/Devices";
 import Home from "../Screens/Home";
 
 export default function Main() {

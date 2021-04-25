@@ -1,6 +1,10 @@
 .addHomeForm {
   text-align: center;
 }
+.deviceDepartment::-webkit-scrollbar {
+  display: none;
+}
+
 .deviceDepartment {
   height: 500px;
   width: 300px;
@@ -9,7 +13,7 @@
   background-color: rgb(167, 145, 219);
   margin-top: 100px;
   outline: none;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 .addHomeModal {

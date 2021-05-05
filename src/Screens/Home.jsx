@@ -1,19 +1,20 @@
 import React from "react";
-import Cards from "../Components/Cards";
 import "./Home.css";
 import Button from "@material-ui/core/Button";
 import Modal from "react-modal";
 import TextField from "@material-ui/core/TextField";
 import Devices from "./Devices";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
 import { addHomeCard } from "../Redux/Action";
+import HomeCard from "../Components/HomeCard";
 Modal.setAppElement("#root");
 
 function Home(props) {
-  console.log("props", props.listHomes);
   const [isHomeCardModalOpen, toggleHomeCardModal] = React.useState(false);
   const [is_home_form_open, toggle_home_form] = React.useState(false);
-  const [index, setIndex] = React.useState();
+  const [index, setIndex] = React.useState("");
   //const [listHomes] = React.useState(initialData.listHomes);
 
   function handleToggleHomeCardModal(index) {
@@ -39,24 +40,21 @@ function Home(props) {
   };
 
   function deviceDepartment() {
-    if (props.listHomes && props.listHomes.length >= index)
-      return <Devices listHomes={props.listHomes[index]}></Devices>;
+    if (props.homes && props.homes.length >= 0) {
+      const home = props.homes.find((i) => i.id === index);
+      if (home) return <Devices home={home}></Devices>;
+    }
   }
 
   function showHomeList() {
-    if (props.listHomes && props.listHomes.length < 1) {
+    if (props.homes && props.homes.length < 1) {
       return <div>There is no home to show!</div>;
     }
     return (
-      props.listHomes &&
-      props.listHomes.map((i) => (
+      props.homes &&
+      props.homes.map((i) => (
         <li key={i.id}>
-          <Cards
-            type="homeCard"
-            title={i.title}
-            id={i.id}
-            openModal={handleToggleHomeCardModal}
-          />
+          <HomeCard device={i} openModal={handleToggleHomeCardModal} />
         </li>
       ))
     );
@@ -117,7 +115,8 @@ function Home(props) {
   );
 }
 const mapStatetoProps = (state) => {
-  return state;
+  //console.log(state.firestore.ordered);
+  return state.firestore.ordered;
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -126,4 +125,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStatetoProps, mapDispatchToProps)(Home);
+export default compose(
+  connect(mapStatetoProps, mapDispatchToProps),
+  firestoreConnect([{ collection: "homes" }])
+)(Home);

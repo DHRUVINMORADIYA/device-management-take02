@@ -2,10 +2,12 @@ import React from "react";
 import Modal from "react-modal";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import Cards from "../Components/Cards";
 import "./Home.css";
+import { connect } from "react-redux";
+import { addDeviceCard } from "../Redux/Action";
+import DeviceCard from "../Components/DeviceCard";
 
-export default function Devices(props) {
+function Devices(props) {
   const [isDeviceCardModalOpen, toggleDeviceCardModal] = React.useState(false);
   const [is_device_form_open, toggle_device_form] = React.useState(false);
 
@@ -22,10 +24,14 @@ export default function Devices(props) {
     let title = e.target[0].value;
 
     if (title.length > 0) {
-      props.listHomes.listDevices.push({
+      props.pushDevice({
+        id: props.home.id,
         title: title,
-        id: props.listHomes.listDevices.length,
       });
+      // props.listHomes.listDevices.push({
+      //   title: title,
+      //   id: props.listHomes.listDevices.length,
+      // });
       handle_toggle_device_form();
     } else {
       alert("Please Enter a title for device!");
@@ -33,24 +39,23 @@ export default function Devices(props) {
   };
 
   function showDevicesList() {
-    if (props.listHomes.listDevices.length < 1) {
+    if (!props.home.devices || props.home.devices.length < 1) {
       return <div>There is no Device to show!</div>;
     }
-    return props.listHomes.listDevices.map((i) => (
-      <li key={i.id}>
-        <Cards
-          type="deviceCard"
-          title={i.title}
-          id={i.id}
-          openModal={handleToggleDeviceCardModal}
-        />
-      </li>
-    ));
+    console.log(props.home.devices);
+    return (
+      props.home.devices &&
+      props.home.devices.map((i) => (
+        <li>
+          <DeviceCard title={i} openModal={handleToggleDeviceCardModal} />
+        </li>
+      ))
+    );
   }
 
   return (
     <div className="deviceScreen">
-      <div className="deviceListTitle">{props.listHomes.title}</div>
+      <div className="deviceListTitle">{props.home.title}</div>
       {showDevicesList()}
       <div className="addHomeButton">
         <Button
@@ -73,9 +78,7 @@ export default function Devices(props) {
             className="form"
             onSubmit={handleAddDevice}
           >
-            <div className="text">
-              Add Device in Home {props.listHomes.title}
-            </div>
+            <div className="text">Add Device in Home "{props.home.title}"</div>
 
             <TextField
               id="standard-basic"
@@ -96,3 +99,11 @@ export default function Devices(props) {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    pushDevice: (id, title) => dispatch(addDeviceCard(id, title)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Devices);

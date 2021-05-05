@@ -1,0 +1,12 @@
+.card {
+  height: 250px;
+  width: 200px;
+}
+
+.cardDiv {
+  display: flex;
+  justify-content: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  cursor: pointer;
+}
